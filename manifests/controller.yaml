@@ -1,0 +1,73 @@
+# Copyright 2021 Adarga Limited
+# SPDX-License-Identifier: Apache-2.0
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pachyderm-pipeline-controller
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: pachyderm-pipeline-controller
+rules:
+  - apiGroups: ["adarga.ai"]
+    resources:
+      - pachydermpipelines
+      - pachydermpipelines/status
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+  - apiGroups: [""]
+    resources:
+      - replicationcontrollers
+    verbs:
+      - get
+      - list
+      - watch
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pachyderm-pipeline-controller
+subjects:
+  - kind: ServiceAccount
+    name: pachyderm-pipeline-controller
+roleRef:
+  kind: Role
+  name: pachyderm-pipeline-controller
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pachyderm-pipeline-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pachyderm-pipeline-controller
+  template:
+    metadata:
+      labels:
+        app: pachyderm-pipeline-controller
+    spec:
+      serviceAccount: pachyderm-pipeline-controller
+      containers:
+        - name: controller
+          image: pachyderm-pipeline-controller:latest
+          imagePullPolicy: Always
+          env:
+            - name: PACHYDERM_ADDRESS
+              value: 650
+            - name: NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100Mi

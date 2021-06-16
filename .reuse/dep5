@@ -1,0 +1,20 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Pachyderm-Pipeline-Controller
+Upstream-Contact: Adarga <oss@adarga.ai>
+Source: https://github.com/adarga-ai/pachyderm-pipeline-controller
+
+Files: go.sum
+Copyright: 2021 Adarga Limited
+License: Apache-2.0
+
+Files: client/*
+Copyright: The Kubernetes Authors
+License: Apache-2.0
+
+Files: apis/pachyderm/v1alpha1/zz_generated.deepcopy.go
+Copyright: The Kubernetes Authors
+License: Apache-2.0
+
+Files: manifests/adarga.ai_pachydermpipelines.yaml
+Copyright: The Kubernetes Authors
+License: Apache-2.0

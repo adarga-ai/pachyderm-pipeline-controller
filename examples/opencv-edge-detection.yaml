@@ -1,0 +1,22 @@
+# Copyright 2021 Adarga Limited
+# SPDX-License-Identifier: Apache-2.0
+
+kind: PachydermPipeline
+apiVersion: adarga.ai/v1alpha1
+metadata:
+  name: edges
+  namespace: pachyderm
+spec:
+  name: edges
+  description: Edge detection using OpenCV
+  transform:
+    image: pachyderm/opencv
+    cmd: 
+      - python3
+      - -m
+      - service
+      - clean-documents
+  input:
+    pfs:
+      repo: images
+      glob: "/*"
