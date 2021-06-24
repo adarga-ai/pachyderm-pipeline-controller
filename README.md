@@ -71,5 +71,9 @@ Examples are kept in the [examples](examples/) directory.
 
 ## Contributing
 
-Please see [CONTRIBUTING.md](CONTRIBUTING.md).
+Please see [CONTRIBUTING](CONTRIBUTING.md).
 
+## Issues
+
+Please use [the github issue tracker](https://github.com/adarga-ai/pachyderm-pipeline-controller/issues)
+to raise any issues or questions you have.  This is not an officially supported Adarga product.
